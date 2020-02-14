@@ -5,12 +5,23 @@ $(document).ready(function() {
 	initializePage();
 })
 
+
+
+$(a).onclick = function() {
+	e.preventDefault();
+
+
+}
+
 /*
  * Function that is called when the document is ready.
  */
 function initializePage() {
 	$('.project a').click(addProjectDetails);
-
+	$.get("http://URL", callBackFn)
+	$(a).onclick = function() {
+		e.preventDefault();
+	}
 	// $('#colorBtn').click(randomizeColors);
 }
 
@@ -27,4 +38,25 @@ function addProjectDetails(e) {
 	var idNumber = projectID.substr('project'.length);
 
 	console.log("User clicked on project " + idNumber);
+
+	$.get('/project/' + idNumber, function(result) {
+
+		var projectInfo = '<img src="' + result['image'] + '" class="detailsImage"><p>' + result['title'] + '</p><p><small>' + result['date'] + '</small></p>';
+
+		$('#project' + idNumber + '  .details').html(projectInfo + result.summary);
+	});
+
+}
+
+function addProject(result) {
+	var projectHTML = '<a href="#" class="thumbnail">' +
+	  '<img src="' + result['image'] + '" class="img">' +
+	  '<p>' + result['title'] + '</p>' +
+	  '<p><small>' + result['date'] +
+	  '</small></p></a>'; 
+  }
+
+  
+function callbackFunction(result) {
+	console.log(result);
 }
